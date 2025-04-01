@@ -1,14 +1,14 @@
 #S1B Box plot of relative abundance of joint optimal bacterial biomarkers selected by random forest algorithm in UC group
-tax <-c('Akkermansia','Enterobacteriaceae_unclassified','Erysipelotrichaceae_UCG−003','Romboutsia',
+tax <-c('Akkermansia','Enterobacteriaceae_unclassified','Erysipelotrichaceae_UCG-003','Romboutsia',
         'Agathobacter','Escherichia-Shigella')
 estimate_group <- 'Group'
 col_values <- c("#AD9984", "#7A5F47", "#7E89AA", "#394F7D")
 
 k1 <- MAE |> EMP_assay_extract('silva') |>
   EMP_collapse(estimate_group = 'Genus',collapse_by = 'row') |>
-  EMP_decostand(method = 'relative') |>
+  EMP_decostand(method = 'relative') |> 
   EMP_filter(sample_condition = Group %in% c('UC_before','UC_after'),
-             feature_condition = str_detect_multi(feature,tax,exact=T),action = 'select') |>
+             feature_condition = str_detect_multi(feature,!!tax,exact=F),action = 'select') |>
   EMP_assay_extract(action = 'get')
 
 k2 <- MAE |> EMP_assay_extract('silva') |>
